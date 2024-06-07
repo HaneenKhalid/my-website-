@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل في مسابقة أفضل قائد ناشئ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #404352;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            direction: rtl;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #F8BD49;
+            font-size: 2.5em;
+        }
+        .description {
+            font-size: 1.5em;
+            margin-bottom: 40px;
+        }
+        .conditions-container {
+            background-color: #fff;
+            color: #000;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            width: 80%;
+            text-align: right;
+            margin: 0 auto;
+        }
+        .conditions-container h2 {
+            color: #F8BD49;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+        .conditions-container p {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .next-button {
+            background-color: #F8BD49;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+        .form-container {
+            background-color: #404352;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            width: 80%;
+            margin: 0 auto;
+            text-align: right;
+            display: none;
+        }
+        .form-container label {
+            color: #fff;
+            font-size: 1.2em;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-container input[type="text"],
+        .form-container input[type="email"],
+        .form-container input[type="tel"],
+        .form-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 20px 0;
+            border: none;
+            background: #fff;
+            border-radius: 3px;
+            font-size: 1em;
+        }
+        .form-container input[type="submit"] {
+            background-color: #F8BD49;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 1.2em;
+        }
+        .success-message {
+            background-color: #F8BD49;
+            color: #000;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: none;
+            text-align: center;
+        }
+        .success-message p {
+            font-size: 1.5em;
+            margin: 0;
+        }
+        .success-message p:first-child {
+            font-size: 2em;
+            font-family: 'Lalezar', cursive;
+        }
+    </style>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script>
+        (function() {
+            emailjs.init('jVRQIzBCLdgh4Ll0x');
+        })();
+        
+        function showForm() {
+            document.getElementById('conditions').style.display = 'none';
+            document.getElementById('registrationForm').style.display = 'block';
+        }
+
+        function sendEmail(event) {
+            event.preventDefault();
+            emailjs.sendForm('service_ue4rrhn', 'template_a0qt7zm', event.target)
+                .then(function(response) {
+                    console.log('تم التسجيل بنجاح:', response);
+                    document.getElementById('registrationForm').style.display = 'none';
+                    document.getElementById('successMessage').style.display = 'block';
+                }, function(error) {
+                    console.log('حدثت مشكلة أثناء التسجيل:', error);
+                });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>مسابقة أفضل قائد ناشئ</h1>
+        <p class="description">لتشجيع وتطوير القيادات الطلابية الواعدة في الكلية من خلال إشراكهم في مسابقة تحتفي بمهاراتهم وتحفزهم على تنفيذ مبادرات إيجابية ومؤثرة في الكلية</p>
+        
+        <div class="conditions-container" id="conditions">
+            <h2>الشروط</h2>
+            <p>الفريق: يتكون من ثلاثة أعضاء بالإضافة إلى القائد.</p>
+            <p>المسابقة: تشمل تنظيم مبادرة ناجحة تؤثر إيجابيًا على الكلية.</p>
+            <p>يتم تقييم القائد وفريقه بناءً على الابتكار، التنظيم، التواصل، التأثير الإيجابي.</p>
+            <button class="next-button" onclick="showForm()">التالي</button>
+        </div>
+        
+        <div class="form-container" id="registrationForm">
+            <h2>تسجيل في المسابقة</h2>
+            <form id="competitionForm" onsubmit="sendEmail(event)">
+                <label for="fullName">الاسم الكامل:</label>
+                <input type="text" id="fullName" name="fullName" required>
+                
+                <label for="email">البريد الإلكتروني:</label>
+                <input type="email" id="email" name="email" required>
+                
+                <label for="phoneNumber">رقم الهاتف:</label>
+                <input type="tel" id="phoneNumber" name="phoneNumber" required>
+                
+                <label for="teamName">اسم الفريق:</label>
+                <input type="text" id="teamName" name="teamName" required>
+                
+                <label for="teamMembers">أسماء أعضاء الفريق:</label>
+                <textarea id="teamMembers" name="teamMembers" required></textarea>
+                
+                <input type="submit" value="تسجيل">
+            </form>
+        </div>
+
+        <div class="success-message" id="successMessage">
+            <p>تم التسجيل بنجاح!</p>
+            <p>نتطلع لرؤية مبادرتك وإبداعاتك.</p>
+        </div>
+    </div>
+</body>
+</html>
